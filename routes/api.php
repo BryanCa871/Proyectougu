@@ -31,7 +31,7 @@ Route::prefix("/login")->group(function()
 }
 );
 
-Route::prefix("/v2")->group(function()
+Route::prefix("/v3")->group(function()
 {
     Route::get("/datos/humedad",[adafruitcontroller::class,"humedad"]);
 });
