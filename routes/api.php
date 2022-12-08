@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\insertarEnFeed;
+use App\Http\Controllers\adafruitcontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +28,10 @@ Route::prefix("/login")->group(function()
     Route::middleware('auth:sanctum')->post("/make/logout",[LoginController::class,"logout"]);
 }
 );
+
+Route::prefix("/adafruit")->group(function()
+{
+    Route::get("/datos/humedad",[adafruitcontroller::class,"humedad"]);
+});
 
 
