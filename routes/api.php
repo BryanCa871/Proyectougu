@@ -25,6 +25,8 @@ Route::prefix("/login")->group(function()
     Route::post("/make/registrar",[LoginController::class,"registrar"]);
     Route::post("/make/login",[LoginController::class,"createLogin"]);
     Route::middleware('auth:sanctum')->post("/make/logout",[LoginController::class,"logout"]);
+
+    Route::middleware('auth:sanctum')->post("/make/insertar",[insertarEnFeed::class,"insertar"]);
 }
 );
 
