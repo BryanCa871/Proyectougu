@@ -77,10 +77,4 @@ class adafruitcontroller extends Controller
                                "datas"=>$response->object()->last_value,
                                 ],201);
                             } 
-
-
-
-
-
-
 }
