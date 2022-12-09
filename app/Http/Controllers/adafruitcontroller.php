@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class adafruitcontroller extends Controller
 {
-    public function humedad (){
+    public function humedad (Request $request){
         $response = Http::get("https://io.adafruit.com/api/v2/Abel0120/feeds/default-dot-humedad?X-AIO-KEY=aio_nFdz91zKSQCuOpVqj3rnGwU7XaS0",[]);
 
         return response()->json([

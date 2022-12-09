@@ -23,9 +23,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix("/login")->group(function()
 {
+
+    Route::get("/datos/humedad",[LoginController::class,"humedad"]);
+
     Route::post("/make/registrar",[LoginController::class,"registrar"]);
     Route::post("/make/login",[LoginController::class,"createLogin"]);
     Route::middleware('auth:sanctum')->post("/make/logout",[LoginController::class,"logout"]);
+
+
+    Route::get("/datos/humedad",[LoginController::class,"humedad"]);
 
     Route::middleware('auth:sanctum')->post("/make/insertar",[insertarEnFeed::class,"insertar"]);
 }

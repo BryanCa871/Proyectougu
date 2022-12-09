@@ -10,6 +10,19 @@ use App\Models\User;
 
 class LoginController extends Controller
 {
+
+    public function humedad (Request $request){
+        $response = Http::get("https://io.adafruit.com/api/v2/Abel0120/feeds/default-dot-humedad?X-AIO-KEY=aio_nFdz91zKSQCuOpVqj3rnGwU7XaS0",[]);
+
+        return response()->json([
+            "status"=>201,
+            "message"=>"Correcto",
+            "error"=>null,
+            "sensores"=>$response->object()->id,
+           "datas"=>$response->object()->last_value,
+            ],201);
+        }  
+
     public function registrar(Request $request)
     {
         $validacion= validator::make(
