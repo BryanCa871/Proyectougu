@@ -31,8 +31,6 @@ Route::prefix("/login")->group(function()
     Route::middleware('auth:sanctum')->post("/make/logout",[LoginController::class,"logout"]);
 
 
-    Route::get("/datos/humedad",[LoginController::class,"humedad"]);
-
     Route::middleware('auth:sanctum')->post("/make/insertar",[insertarEnFeed::class,"insertar"]);
 }
 );
