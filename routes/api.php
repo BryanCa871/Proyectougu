@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdafruitController;
+use App\Http\Controllers\FunctionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\LoginController;
-use App\Http\Controllers\Api\insertarEnFeed;
-use App\Http\Controllers\adafruitcontroller;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,23 +21,47 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix("/login")->group(function()
+Route::prefix("/adafruit")->group(function()
 {
-
-    Route::get("/datos/humedad",[LoginController::class,"humedad"]);
-
-    Route::post("/make/registrar",[LoginController::class,"registrar"]);
-    Route::post("/make/login",[LoginController::class,"createLogin"]);
-    Route::middleware('auth:sanctum')->post("/make/logout",[LoginController::class,"logout"]);
-
-
-    Route::middleware('auth:sanctum')->post("/make/insertar",[insertarEnFeed::class,"insertar"]);
-}
-);
-
-Route::prefix("/v3")->group(function()
-{
-    Route::get("/datos/humedad",[adafruitcontroller::class,"humedad"]);
+    Route::get("/datos/humedad",[AdafruitController::class,"humedad"]);
+    Route::get("/datos/luz",[AdafruitController::class,"luz"]);
+    Route::get("/datos/corrientemax",[AdafruitController::class,"corientemax"]);
+    Route::get("/datos/corrientemin",[AdafruitController::class,"corientemin"]);
+    Route::get("/datos/corrientewatts",[AdafruitController::class,"corientewatts"]);
+    Route::get("/datos/temperatura",[AdafruitController::class,"temperatura"]);
 });
 
+Route::prefix("/login")->group(function()
+{
+    Route::post("/make/usuario",[LoginController::class,"registrar"]);
+    Route::post("/make/login",[LoginController::class,"createlogin"]);
+    Route::middleware('auth:sanctum')->post("/make/logout",[LoginController::class,"logout"]);
+    Route::post("/crear/feed",[AdafruitController::class,"si"]);
+});
 
+Route::prefix("/function1")->group(function()
+{
+    Route::post("/crear/sensor",[FunctionController::class,"registrarsensor"]);
+    Route::post("/crear/salon",[FunctionController::class,"registrarsalon"]);
+});
+
+Route::prefix("/function2")->group(function()
+{
+    Route::put("/modificar/usuario/{id}",[FunctionController::class,"modificarusuario"])->where('id',"[1-9]+");
+    Route::put("/modificar/sensor/{id}",[FunctionController::class,"modificarsensor"])->where('id',"[1-9]+");
+    Route::put("/modificar/salon/{id}",[FunctionController::class,"modificarsalon"])->where('id',"[1-9]+");
+});
+
+Route::prefix("/function3")->group(function()
+{
+    Route::get("/consultar/usuario",[FunctionController::class,"consultarusuario"]);
+    Route::get("/consultar/sensor",[FunctionController::class,"consultarsensor"]);
+    Route::get("/consultar/salon",[FunctionController::class,"consultarsalon"]);
+});
+
+Route::prefix("/function4")->group(function()
+{
+    Route::put("/eliminar/usuario/{id}",[FunctionController::class,"eliminarusuario"])->where('id',"[1-9]+");
+    Route::put("/eliminar/sensor/{id}",[FunctionController::class,"eliminarsensor"])->where('id',"[1-9]+");
+    Route::put("/eliminar/salon/{id}",[FunctionController::class,"eliminarsalon"])->where('id',"[1-9]+");
+});
